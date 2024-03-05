@@ -37,20 +37,31 @@ class user extends Controller
         // m_user::where('username','customer-1') ->update($data); //update data user
 
 
-        $data = [
-                'level_id' => 2,
-                'username' => 'manager_empat',
-                'nama' => 'Manager 4',
-                'password' => Hash::make('12345'),
-            ];
-            m_user::create($data);
+        // $data = [
+        //         'level_id' => 2,
+        //         'username' => 'manager_empat',
+        //         'nama' => 'Manager 4',
+        //         'password' => Hash::make('12345'),
+        //     ];
+        //     m_user::create($data);
     
-            $user = m_user::all();
-            return view('user',['data'=>$user]);
+            // $user = m_user::all();
+            // return view('user',['data'=>$user]);
 
         //coba akses model user model
         // $user =m_user::all(); //ambil semua data dari tabel m_user
         // return view('user', ['data' => $user]);
+
+        // $user = m_user::find(1);
+        // return view('user',['data'=>$user]);
+
+        // $user = m_user::where('level_id', 1)->first();
+        // return view('user', ['data' => $user]);
+
+        $user =m_user::findOr(20,['username','nama'], function(){
+            abort(404);
+        });
+        return view('user', ['data'=>$user]);
 
     }
 }
