@@ -58,10 +58,17 @@ class user extends Controller
         // $user = m_user::where('level_id', 1)->first();
         // return view('user', ['data' => $user]);
 
-        $user =m_user::findOr(20,['username','nama'], function(){
-            abort(404);
-        });
+        // $user =m_user::findOr(20,['username','nama'], function(){
+        //     abort(404);
+        // });
+        // return view('user', ['data'=>$user]);
+
+        // $user = m_user::findOrFail(1);
+        // return view('user',['data'=>$user]);
+
+        $user =m_user::where('username','manager')->firstOrFail();
         return view('user', ['data'=>$user]);
+
 
     }
 }
