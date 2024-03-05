@@ -10,27 +10,27 @@
     <h1>Data user</h1>
     <table border="1" cellpadding="2" cellspacing="0">
         <tr>
-            {{-- <th>ID</th>
+            <th>ID</th>
             <th>Username</th>
             <th>Nama</th>
-            <th>Id level pengguna</th> --}}
+            <th>Id level pengguna</th>
 
         </tr>
         {{-- @foreach ($data as $d) --}}
             <tr>
-                {{-- <td>{{$data->user_id}}</td>
+                <td>{{$data->user_id}}</td>
                 <td>{{$data->username}}</td>
                 <td>{{$data->nama}}</td>
-                <td>{{$data->level_id}}</td> --}}
+                <td>{{$data->level_id}}</td>
             </tr>
         {{-- @endforeach --}}
 
-        <tr>
+        {{-- <tr>
             <th>jumlah pengguna</th>
         </tr>
         <tr>
             <td>{{$data}}</td>
-        </tr>
+        </tr> --}}
 
         
     </table>   

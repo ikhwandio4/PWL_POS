@@ -16,7 +16,7 @@ class m_user extends Model
 
 
    
-    //protected $fillable = ['level_id','username','nama','password'];
+    protected $fillable = ['level_id','username','nama','password'];
 
-    protected $fillable =['level_id','username','nama'];
+    // protected $fillable =['level_id','username','nama'];
 }
