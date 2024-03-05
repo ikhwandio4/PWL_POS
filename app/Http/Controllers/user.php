@@ -4,13 +4,23 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\UserModel;
+use App\Models\m_user;
 use Illuminate\Support\Facades\Hash;
 
 class user extends Controller
 {
     public function index()
+
     {
+        // $data = [
+        //         'level_id' => 4,
+        //         'username' => 'manager_dua',
+        //         'nama' => 'manager 2' ,
+        //         'password' => Hash::make('123445'),
+                
+        //     ];
+        //     m_user::create($data);
+
         //tambah data user dengan eloquent model
         // $data = [
         //     'username' => 'customer-1',
@@ -19,16 +29,28 @@ class user extends Controller
         //     'level_id' => 4
             
         // ];
-        // UserModel::insert($data); //tambahkan data ke tabel m_user
+        // m_user::insert($data); //tambahkan data ke tabel m_user
 
-        $data =[
-            'nama' => 'pelanggan pertama',
-        ];
-        UserModel::where('username','customer-1') ->update($data); //update data user
+        // $data =[
+        //     'nama' => 'pelanggan pertama',
+        // ];
+        // m_user::where('username','customer-1') ->update($data); //update data user
+
+
+        $data = [
+                'level_id' => 2,
+                'username' => 'manager_empat',
+                'nama' => 'Manager 4',
+                'password' => Hash::make('12345'),
+            ];
+            m_user::create($data);
+    
+            $user = m_user::all();
+            return view('user',['data'=>$user]);
 
         //coba akses model user model
-        $user =UserModel::all(); //ambil semua data dari tabel m_user
-        return view('user', ['data' => $user]);
+        // $user =m_user::all(); //ambil semua data dari tabel m_user
+        // return view('user', ['data' => $user]);
 
     }
 }
