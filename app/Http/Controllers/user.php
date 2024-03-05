@@ -66,7 +66,11 @@ class user extends Controller
         // $user = m_user::findOrFail(1);
         // return view('user',['data'=>$user]);
 
-        $user =m_user::where('username','manager')->firstOrFail();
+        // $user =m_user::where('username','manager')->firstOrFail();
+        // return view('user', ['data'=>$user]);
+
+        $user =m_user::where('level_id',2)->count();
+        //dd($user);
         return view('user', ['data'=>$user]);
 
 
