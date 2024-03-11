@@ -151,8 +151,14 @@ class user extends Controller
 
 
         //praktikum crud
-        $user = m_user::all();
+         $user = m_user::all();
         return view('user', ['data' => $user]);
+
+        $user = m_user::with('level')->get();
+        return view('user', ['data' => $user]);
+        
+
+    
         
 
     }
@@ -195,5 +201,9 @@ class user extends Controller
 
         return redirect('/user');
     }
+
+    //praktikum 2.6
+
+    
 
 }
