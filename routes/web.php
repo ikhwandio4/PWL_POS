@@ -27,4 +27,9 @@ Route::get('/level',[levelcontroller::class, 'index']);
 //praktikum 5
 Route::get('/kategori',[kategoriController::class,'index']);
 //praktikum 6
-Route::get('/user',[user::class, 'index']);
+Route::get('/user', [User::class, 'index'])->name('/user');
+Route::get('/user/tambah', [User::class, 'tambah'])->name('/user/tambah');
+Route::get('/user/ubah/{id}', [User::class, 'ubah'])->name('/user/ubah');
+Route::get('/user/hapus/{id}', [User::class, 'hapus'])->name('/user/hapus');
+Route::post('/user/tambah_simpan',[User::class,'tambah_simpan'])->name('/user/tambah_simpan');
+Route::put('/user/ubah_simpan/{id}',[User::class,'ubah_simpan'])->name('/user/ubah_simpan');
