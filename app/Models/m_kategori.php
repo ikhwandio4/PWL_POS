@@ -9,8 +9,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class m_kategori extends Model
 {
     use HasFactory;
+    // public function barang(): HasMany
+    // {
+    //     return $this->hasMany(m_barang::class, 'barang_id', 'barang_id');
+
+        
+    // }
+    protected $table = 'm_kategoris';
+    protected $primarykey = 'kategori_id';
+
+    protected $fillable = ['kategori_kode', 'kategori_nama'];
+
     public function barang(): HasMany
-    {
-        return $this->hasMany(m_barang::class, 'barang_id', 'barang_id');
-    }
+
+{
+    return $this->hasMany(m_barang::class, 'barang_id', 'barang_id');
+}
 }
