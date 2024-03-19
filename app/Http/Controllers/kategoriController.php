@@ -65,6 +65,13 @@ class kategoriController extends Controller
 
         return redirect('/kategori');
     }
+    public function hapus($id)
+    {
+        $kategori = m_kategori::find($id);
+        $kategori ->delete();
+
+        return redirect('/kategori');
+    }
     
     
 }
