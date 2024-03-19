@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DataTables\KategoriDataTable;
+use App\Models\m_kategori;
 use Illuminate\Support\Facades\DB;
+
 
 class kategoriController extends Controller
 {
@@ -31,6 +33,19 @@ class kategoriController extends Controller
     public function index(KategoriDataTable $dataTable)
     {
         return $dataTable->render('kategori.index');
+    }
+    public function create()
+    {
+        return view('kategori.create');
+    }
+    public function store(request $request) 
+    {
+        m_kategori::create([
+            'kategori_kode' =>$request->kodeKategori,
+            'kategori_nama' =>$request->namaKategori,
+        ]);
+        return redirect('/kategori');
+
     }
     
 }
