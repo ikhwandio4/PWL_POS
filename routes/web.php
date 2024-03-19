@@ -40,3 +40,6 @@ Route::post('/kategori',[KategoriController::class,'store']);
 
 Route::get('/kategori/create',[KategoriController::class,'create'])->name('/kategori/create');
 Route::post('/kategori',[KategoriController::class,'store'])->name('/kategori');
+
+Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit'])->name('kategori.edit');
+Route::put('/kategori/edit_save/{id}', [KategoriController::class, 'edit_save'])->name('kategori.update');
