@@ -41,9 +41,11 @@ Route::get('/level/create', function(){
     return view('level.create');
 });
 
-Route::get('/user/update', [UserController::class, 'update'])->name('/user/update');
+//Route::get('/user/update', [UserController::class, 'update'])->name('/user/update');
 Route::get('/kategori/create', [KategoriController::class, 'create']);
 Route::post('/kategori', [KategoriController::class, 'store']);
+Route::get('/level/create', [LevelController::class, 'create'])->name('/level/create');
+Route::post('/level', [LevelController::class, 'create_save']);
 
 //soal 1
 route::get('/kategori',[kategoriController::class, 'index']);
@@ -60,5 +62,16 @@ Route::put('/kategori/edit_save/{id}', [KategoriController::class, 'edit_save'])
 
 //soal 4
 Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus'])->name('/kategori/hapus');
+
+
+//
+Route::get('/level/update', [LevelController::class, 'update'])->name('/level/update');
+Route::get('/user/create', [User::class, 'create'])->name('/user/create');
+Route::get('/user/update', [User::class, 'update'])->name('/user/update');
+Route::get('/kategori/create', [KategoriController::class, 'create']);
+Route::post('/kategori', [KategoriController::class, 'store']);
+Route::get('/level/create', [LevelController::class, 'create'])->name('/level/create');
+Route::post('/level', [LevelController::class, 'create_save']);
+
 
 
