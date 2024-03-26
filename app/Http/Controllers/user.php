@@ -166,8 +166,24 @@ class user extends Controller
     {
         return view('user_tambah');
     }
+    // public function tambah_simpan(Request $request)
+    // {
+    //     m_user::create([
+    //         'username' => $request->username,
+    //         'nama' => $request->nama,
+    //         'password' => Hash::make($request->password),
+    //         'level_id' => $request->level_id,
+    //     ]);
+    //     return redirect('/user');
+    // }
     public function tambah_simpan(Request $request)
     {
+        $validated = $request->validate([
+            'username' => 'bail|required',
+            'nama' => 'required',
+            'password' => 'required',
+            'level_id' => 'required',
+        ]);
         m_user::create([
             'username' => $request->username,
             'nama' => $request->nama,
