@@ -329,6 +329,11 @@ return [
             // 'label' => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text' => 'Level',
+            'url' => 'level/create',
+            'icon' => 'fas fa-user-shield',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

@@ -6,15 +6,26 @@
 @section('content')
 <div class="card-body">
 <form>
-<div class="row">
-<div class="col-sm-6">
+<div class="card-body">
+{{-- <div class="col-sm-6">
 <!-- text input -->
 <div class="form-group">
 <label>Level id</label><input type="text" class="form-control" placeholder="id">
 <div>
 </div>
 <button type = "submit" class ="btn btn-info">Submit </button>
-</div>
+</div> --}}
+<form>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Level id</label>
+                <input type="text" class="form-control" placeholder="id">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-info">Submit</button>
+    </div>
+</form>
 @stop
 @section('css')
 {{-- Add here extra stylesheets --}}

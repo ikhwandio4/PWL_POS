@@ -34,6 +34,13 @@ Route::get('/user/hapus/{id}', [User::class, 'hapus'])->name('/user/hapus');
 Route::post('/user/tambah_simpan',[User::class,'tambah_simpan'])->name('/user/tambah_simpan');
 Route::put('/user/ubah_simpan/{id}',[User::class,'ubah_simpan'])->name('/user/ubah_simpan');
 
+Route::get('/user/create', function(){
+    return view('user.create');
+});
+Route::get('/level/create', function(){
+    return view('level.create');
+});
+
 //soal 1
 route::get('/kategori',[kategoriController::class, 'index']);
 Route::get('/kategori/create',[KategoriController::class,'create']);
@@ -49,3 +56,5 @@ Route::put('/kategori/edit_save/{id}', [KategoriController::class, 'edit_save'])
 
 //soal 4
 Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus'])->name('/kategori/hapus');
+
+
