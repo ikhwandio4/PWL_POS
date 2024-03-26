@@ -13,9 +13,11 @@ class m_user extends Model
     use HasFactory;
     protected $table = 'm_users';
     protected $primaryKey = 'user_id';
+    public $timestamps = false;
 
 
-    protected $fillable = ['level_id','username','nama','password'];
+    //protected $fillable = ['level_id','username','nama','password'];
+    protected $fillable = ['user_id', 'level_id', 'username', 'nama', 'password'];
 
    
 

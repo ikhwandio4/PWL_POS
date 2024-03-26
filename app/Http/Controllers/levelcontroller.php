@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\m_level;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,6 +28,19 @@ class levelcontroller extends Controller
     public function create()
     {
         return view('level.create');
+    }
+    public function create_save(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'level_kode' => 'bail|required',
+            'level_nama' => 'required',
+        ]);
+
+        m_level::create([
+            'level_kode' => $request->level_kode,
+            'level_nama' => $request->level_nama,
+        ]);
+        return redirect('/level');
     }
     public function update()
     {
