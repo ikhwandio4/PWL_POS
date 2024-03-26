@@ -20,5 +20,15 @@ class levelcontroller extends Controller
 
         $data = DB::select('select * from m_levels');
         return view('level',['data' => $data]);
+
+        
+    }
+    public function create()
+    {
+        return view('level.create');
+    }
+    public function update()
+    {
+        return view('level.edit');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\DataTables\KategoriDataTable;
 use App\Models\m_kategori;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 
 
 class kategoriController extends Controller
@@ -40,11 +41,17 @@ class kategoriController extends Controller
     }
     public function store(request $request) 
     {
-        m_kategori::create([
-            'kategori_kode' =>$request->kodeKategori,
-            'kategori_nama' =>$request->namaKategori,
+        // m_kategori::create([
+        //     'kategori_kode' =>$request->kodeKategori,
+        //     'kategori_nama' =>$request->namaKategori,
 
-        ]);
+            $validated = $request->validate([
+                'kategori_kode' => 'required',
+                'kategori_nama' => 'required',
+                
+            ]);
+
+        
         return redirect('/kategori');
 
     }

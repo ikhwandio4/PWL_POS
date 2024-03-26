@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Dashboard')
 @section('content_header')
-<h1>Manage User</h1>
+<h1>Dashboard</h1>
 @stop
 @section('content')
 <div class="container-fluid">
@@ -11,39 +11,31 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Buat User Baru</h3>
+                <h3 class="card-title">Ubah Level</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form>
                 <div class="card-body">
-                    <div class="form-group">
-                        <label>Level</label>
-                        <select class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
-                        </select>
-                      </div>
                   <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder=" Enter Username">
+                    <label for="kodeLevel">Level ID</label>
+                    <input type="text" class="form-control" id="kodeLevel" name="kodeLevel" value="" disabled>
                   </div>
                   <div class="form-group">
-                    <label for="nama">Nama</label>
-                    <input type="text" class="form-control" id="nama" placeholder="Enter Nama">
+                    <label for="kodeLevel">Level Kode</label>
+                    <input type="text" class="form-control" id="kodeLevel" name="kodeLevel" value="">
                   </div>
                   <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                    <label for="namaLevel">Level Nama</label>
+                    <input type="text" class="form-control" id="namaLevel" value="">
                   </div>
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-warning">Cancel</button>
+                  <button type="submit" class="btn btn-info">Kembali</button>
                 </div>
               </form>
             </div>

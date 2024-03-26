@@ -204,6 +204,13 @@ class user extends Controller
 
     //praktikum 2.6
 
-    
+    public function create()
+    {
+        return view('user.create');
+    }
+    public function update()
+    {
+        return view('user.edit');
+    }
 
 }

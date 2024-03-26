@@ -18,7 +18,11 @@
               <form>
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Level</label>
+                    <label for="kodeLevel">User ID</label>
+                    <input type="text" class="form-control" id="kodeLevel" name="kodeLevel" value="" disabled>
+                  </div>
+                    <div class="form-group">
+                        <label>Level Nama</label>
                         <select class="form-control">
                           <option>option 1</option>
                           <option>option 2</option>
@@ -44,6 +48,8 @@
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-warning">Cancel</button>
+                  <button type="submit" class="btn btn-info">Kembali</button>
                 </div>
               </form>
             </div>
