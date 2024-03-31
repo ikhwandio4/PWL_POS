@@ -6,7 +6,7 @@ use App\Http\Controllers\POSController;
 use App\Http\Controllers\user;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
-
+use App\Http\Controllers\welcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//jobsheet 7
+Route::get('/',[welcomeController::class,'index']);
 
 Route::get('/level',[levelcontroller::class, 'index']);
 //praktikum 5
