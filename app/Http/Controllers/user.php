@@ -27,7 +27,7 @@ class user extends Controller
         $activemenu = 'user'; //set menu yang sedang aktif
         $level = m_level::all();
         
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activemenu' => $activemenu]);
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page,'level' =>$level, 'activemenu' => $activemenu]);
 
     }
         
@@ -292,6 +292,11 @@ public function list(Request $request)
     {
         $users = m_user::select('user_id', 'username', 'nama', 'level_id')->with('level');
 
+        //filter data user berdasarkan level_id
+        if ($request->level_id) {
+            $users->where('level_id', $request->level_id);
+        }
+
         return DataTables::of($users)
         ->addIndexColumn()
         ->addColumn('aksi', function ($user) {
@@ -347,7 +352,7 @@ public function show(string $id)
 
 
 //menampilkan halaman form edit user
-public function  edit(String $id)
+public function  edit(string $id)
 {
     $user = m_user::find($id);
     $level = m_level::all();
