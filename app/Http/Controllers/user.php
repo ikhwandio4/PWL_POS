@@ -2,16 +2,35 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\m_level;
 use Illuminate\Http\Request;
 use App\Models\m_user;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class user extends Controller
 {
     public function index()
 
     {
+
+        //jobsheet 7
+        $breadcrumb = (object)[
+            'title' => 'Daftar User',
+            'list' => ['Home', 'User'],
+        ];
+        
+        $page = (object)[
+            'title' => 'Daftar user yang terdaftar dalam sistem',
+        ];
+        
+        $activemenu = 'user'; //set menu yang sedang aktif
+        $level = m_level::all();
+        
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activemenu' => $activemenu]);
+
+    }
+        
         // $data = [
         //         'level_id' => 4,
         //         'username' => 'manager_dua',
@@ -151,17 +170,17 @@ class user extends Controller
 
 
         //praktikum crud
-         $user = m_user::all();
-        return view('user', ['data' => $user]);
+    //      $user = m_user::all();
+    //     return view('user', ['data' => $user]);
 
-        $user = m_user::with('level')->get();
-        return view('user', ['data' => $user]);
+    //     $user = m_user::with('level')->get();
+    //     return view('user', ['data' => $user]);
         
 
     
         
 
-    }
+    // }
     public function tambah()
     {
         return view('user_tambah');
@@ -220,13 +239,170 @@ class user extends Controller
 
     //praktikum 2.6
 
+    // public function create()
+    // {
+    //     return view('user.create');
+    // }
+
     public function create()
     {
-        return view('user.create');
+        $breadcrumb = (object)[
+            'title' => 'Tambah User',
+            'list' => ['Home', 'User', 'Tambah']
+        ];
+        $page = (object)[
+            'title' => 'Tambah User Baru'
+        ];
+
+        $level = m_level::all(); //ambil data untuk ditampilkan di form
+        $activemenu = 'user';
+        return view('user.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activemenu' => $activemenu]);
+
     }
-    public function update()
+       
+    // public function update()
+    // {
+    //     return view('user.edit');
+    // }
+
+//jobsheet 7
+
+//ambil data user dalam bentuk json untuk datatables
+// public function list(Request $request)
+// {
+//   $users = m_user::select('user_id', 'username', 'nama', 'level_id')
+//     ->with('level');
+
+//   return DataTables::of($users)
+//     ->addIndexColumn()
+//     ->addColumn('aksi', function ($user) {  //menambahkan kolom index/no urut (default nama kolom: dt_rowindex)
+//       $btn = '<a href="' . route('user.show', $user->user_id) . '" class="btn btn-sm btn-info">Detail</a> ';
+//       $btn .= '<a href="' . route('user.edit', $user->user_id) . '" class="btn btn-sm btn-warning">Edit</a> ';
+//       $btn .= '<form action="' . route('user.destroy', $user->user_id) . '" method="post" class="d-inline">';
+//       $btn .= csrf_field();
+//       $btn .= method_field('DELETE');
+//       $btn .= '<button type="submit" class="btn btn-sm btn-danger">Hapus</button>';
+//       $btn .= '</form>';
+//       return $btn;
+//     })
+//     ->rawColumns(['aksi']) //memberitahu bahwa kolom aksi adalah html
+//     ->make(true);
+// }
+public function list(Request $request)
     {
-        return view('user.edit');
+        $users = m_user::select('user_id', 'username', 'nama', 'level_id')->with('level');
+
+        return DataTables::of($users)
+        ->addIndexColumn()
+        ->addColumn('aksi', function ($user) {
+            $btn = '<a href="' . url('/user/' . $user->user_id) . '" class="btn btn-info btn-sm">Detail</a>';
+            $btn .= '<a href="' . url('/user/' . $user->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a>';
+            $btn .= '<form class="d-inline-block" method="POST" action="' . url('/user/' . $user->user_id) . '">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+            return $btn;
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
     }
 
+// public function show (String $id)
+// {
+//     $user =m_user::with('level')->find($id);
+
+//     $breadcrumb = (object) [
+//         'title' => 'Detail User',
+//         'List'  => ['Home','user','Detail']
+//     ];
+
+//     $page =(object) [
+//         'title' => 'Detail user'
+//     ];
+
+//     $activemenu ='user';
+
+//     return view('user.show',['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMneu' => $activemenu]);
+// }
+public function show(string $id)
+{
+    $user = m_user::with('level')->find($id);
+
+    // Ensure $user is found before proceeding
+    if (!$user) {
+        return redirect()->route('users.index')->with('error', 'User not found!');
+    }
+
+    $breadcrumb = [
+        'title' => 'Detail User',
+        'list' => ['Home', 'user', 'Detail']
+    ];
+
+    $page = [
+        'title' => 'Detail User'
+    ];
+
+    $activeMenu = 'user';  // Corrected casing for consistency
+
+    return view('user.show', compact('breadcrumb', 'page', 'user', 'activeMenu'));
+}
+
+
+
+//menampilkan halaman form edit user
+public function  edit(String $id)
+{
+    $user = m_user::find($id);
+    $level = m_level::all();
+
+    $breadcrumb =(object) [
+        'title' => 'Edit User',
+        'list' => ['Home','user','edit']
+    ];
+
+    $page =(object) [
+        'title' => 'Edit User'
+    ];
+
+    $activemenu = 'user';
+
+     return view('user.edit',['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $level, 'activemenu' => $activemenu]);
+
+
+
+}
+public function update(Request $request, string $id)
+{
+    $request->validate([
+        'username' => 'required|string|min:3|unique:m_users,username,'.$id.',user_id',
+        'nama' => 'required|string|max:100',
+        'password' => 'required|min:5',
+        'level_id' => 'required|integer',
+    ]);
+
+    m_user::find($id)->update([
+        'username' => $request->username,
+        'nama'  => $request ->nama,
+        'password ' => $request->password ? bcrypt($request->password) : m_user::find($id)->password,
+        'level_id' => $request->level_id
+    ]);
+
+    return redirect('/user')->with('success','Data user berhasil diubah');
+
+}
+//menghapus data user
+public function destroy(string $id)
+{
+    $check =m_user::find($id);
+    if (!$check) {
+        return redirect('/user')->with('error','Data user tidak ditemukan');
+    }
+    try {
+        m_user::destroy($id);
+        return redirect('/user')->with('Succes','Data berhasil dihapus');
+        
+    }catch (\Illuminate\Database\QueryException $e){
+        
+        //jika terjadi eror ketika mengahpus data, redirect kembali ke halaman dengan membawa pesan eror
+
+        return redirect('/user')->with('eror','Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+    }
+}
 }

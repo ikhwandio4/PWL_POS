@@ -19,12 +19,6 @@ use App\Http\Controllers\welcomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//jobsheet 7
-Route::get('/',[welcomeController::class,'index']);
 
 Route::get('/level',[levelcontroller::class, 'index']);
 //praktikum 5
@@ -77,5 +71,23 @@ Route::get('/level/create', [LevelController::class, 'create'])->name('/level/cr
 Route::post('/level', [LevelController::class, 'create_save']);
 Route::resource('/m_user',POSController::class);
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
+//jobsheet 7
+Route::get('/',[welcomeController::class,'index']);
+
+Route::group (['prefix' =>'user'],function(){
+    Route::get('/',[user::class,'index']);
+    Route::post('/list',[user::class,'list']);
+    Route::get('/create',[user::class,'create']);
+    Route::post('/',[user::class,'store']);
+    Route::get('/{id}',[user::class,'show']);
+    Route::get('/{id}/edit',[user::class,'edit']);
+    Route::put('/{id}',[user::class,'update']);
+    Route::delete('/{id}',[user::class,'destroy']);
+
+
+});
 

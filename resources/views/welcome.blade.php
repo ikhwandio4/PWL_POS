@@ -1,4 +1,6 @@
+@extends ('adminlte.page')
 @extends ('layouts.template')
+
 
 @section('content')
 
