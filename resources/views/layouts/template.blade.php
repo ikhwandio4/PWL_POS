@@ -89,7 +89,12 @@
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 <script>
     //untuk mengirimkan token laravek csrf pada setiap request ajax
-    $.ajaxsetup({header: {'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr}});
+   // $.ajaxSetup({header: {'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr}});
+    $.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+  },
+});
 </script>
 @stack('js')  <!-- digunakan untuk memanggil custom js dari perintah push('js') pada masing masing view -->
 </body>

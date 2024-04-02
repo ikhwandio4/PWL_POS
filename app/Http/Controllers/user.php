@@ -181,10 +181,10 @@ class user extends Controller
         
 
     // }
-    public function tambah()
-    {
-        return view('user_tambah');
-    }
+    // public function tambah()
+    // {
+    //     return view('user_tambah');
+    // }
     // public function tambah_simpan(Request $request)
     // {
     //     m_user::create([
@@ -194,48 +194,48 @@ class user extends Controller
     //         'level_id' => $request->level_id,
     //     ]);
     //     return redirect('/user');
+    // // }
+    // public function tambah_simpan(Request $request)
+    // {
+    //     $validated = $request->validate([
+    //         'username' => 'bail|required',
+    //         'nama' => 'required',
+    //         'password' => 'required',
+    //         'level_id' => 'required',
+    //     ]);
+    //     m_user::create([
+    //         'username' => $request->username,
+    //         'nama' => $request->nama,
+    //         'password' => Hash::make($request->password),
+    //         'level_id' => $request->level_id,
+    //     ]);
+    //     return redirect('/user');
     // }
-    public function tambah_simpan(Request $request)
-    {
-        $validated = $request->validate([
-            'username' => 'bail|required',
-            'nama' => 'required',
-            'password' => 'required',
-            'level_id' => 'required',
-        ]);
-        m_user::create([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id,
-        ]);
-        return redirect('/user');
-    }
-    public function ubah($id)
-    {
-        $user = m_user::find($id);
-        return view('user_ubah', ['data' => $user]);
-    }
+    // public function ubah($id)
+    // {
+    //     $user = m_user::find($id);
+    //     return view('user_ubah', ['data' => $user]);
+    // }
 
-    public function ubah_simpan($id, Request $request)
-    {
-        $user = m_user::find($id);
+    // public function ubah_simpan($id, Request $request)
+    // {
+    //     $user = m_user::find($id);
 
-        $user->username = $request->username;
-        $user->nama = $request->nama;
-        $user->level_id = $request->level_id;
+    //     $user->username = $request->username;
+    //     $user->nama = $request->nama;
+    //     $user->level_id = $request->level_id;
 
-        $user->save();
-        return redirect('/user');
-    }
+    //     $user->save();
+    //     return redirect('/user');
+    // }
 
-    public function hapus($id)
-    {
-        $user = m_user::find($id);
-        $user->delete();
+    // public function hapus($id)
+    // {
+    //     $user = m_user::find($id);
+    //     $user->delete();
 
-        return redirect('/user');
-    }
+    //     return redirect('/user');
+    // }
 
     //praktikum 2.6
 
@@ -309,45 +309,44 @@ public function list(Request $request)
         ->make(true);
     }
 
-// public function show (String $id)
-// {
-//     $user =m_user::with('level')->find($id);
-
-//     $breadcrumb = (object) [
-//         'title' => 'Detail User',
-//         'List'  => ['Home','user','Detail']
-//     ];
-
-//     $page =(object) [
-//         'title' => 'Detail user'
-//     ];
-
-//     $activemenu ='user';
-
-//     return view('user.show',['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMneu' => $activemenu]);
-// }
 public function show(string $id)
 {
     $user = m_user::with('level')->find($id);
 
-    // Ensure $user is found before proceeding
-    if (!$user) {
-        return redirect()->route('users.index')->with('error', 'User not found!');
-    }
-
-    $breadcrumb = [
+    $breadcrumb = (object)[
         'title' => 'Detail User',
-        'list' => ['Home', 'user', 'Detail']
+        'list' => ['Home', 'User', 'Detail']
     ];
-
-    $page = [
+    $page = (object)[
         'title' => 'Detail User'
     ];
 
-    $activeMenu = 'user';  // Corrected casing for consistency
+    $activemenu = 'user';
 
-    return view('user.show', compact('breadcrumb', 'page', 'user', 'activeMenu'));
+    return view('user.show', ['user' => $user, 'breadcrumb' => $breadcrumb, 'page' => $page, 'activemenu' => $activemenu]);
 }
+
+public function store(Request $request)
+{
+    $request->validate([
+        'username' => 'required|string|min:3|unique:m_users,username',
+        'nama' => 'required|string|max:100',
+        'password' => 'required|min:5',
+        'level_id' => 'required|integer',
+    ]);
+
+    m_user::create([
+        'username' => $request->username,
+        'nama' => $request->nama,
+        'password' => Hash::make('$request->password'),
+        'password' => bcrypt($request->password),
+        'level_id' => $request->level_id,
+    ]);
+
+    return redirect('/user')->with('success', 'Data user berhasil disimpan');
+}
+
+
 
 
 
