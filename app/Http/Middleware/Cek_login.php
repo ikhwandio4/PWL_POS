@@ -29,7 +29,7 @@ class Cek_login
             return $next($request);
         }
 
-        return redirect('login')->with('eror','Maaf anda tidak memiliki akses');
+        return redirect('login')->with('error','Maaf anda tidak memiliki akses');
        
     }
 }

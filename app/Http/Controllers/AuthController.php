@@ -82,6 +82,7 @@ class AuthController extends Controller
 
         // Jika validasi sukses, tambahkan level dan hash password sebelum menyimpan ke database
         $request['level_id'] = '2';
+        $hashedPassword = bcrypt($request->password);
         $request['password'] = Hash::make($request->password);
 
         // Simpan data pengguna baru ke database
